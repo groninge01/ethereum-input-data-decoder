@@ -19,18 +19,7 @@ var InputDataDecoder = function () {
 
     this.abi = [];
 
-    if (typeof prop === 'string') {
-      try {
-        var fs = require('fs');
-        this.abi = JSON.parse(fs.readFileSync(prop));
-      } catch (err) {
-        try {
-          this.abi = JSON.parse(prop);
-        } catch (err) {
-          throw new Error('Invalid ABI: ' + err.message);
-        }
-      }
-    } else if (prop instanceof Object) {
+    if (prop instanceof Object) {
       this.abi = prop;
     } else {
       throw new TypeError('Must pass ABI array object or file path to constructor');
@@ -368,7 +357,7 @@ function genMethodId(methodName, types) {
 
 function toHexString(byteArray) {
   return Array.from(byteArray, function (byte) {
-    return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    return ('0' + (byte & 0xff).toString(16)).slice(-2);
   }).join('');
 }
 
